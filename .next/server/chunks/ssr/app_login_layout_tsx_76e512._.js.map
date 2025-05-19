@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 7, "column": 0}, "map": {"version":3,"sources":["file://F%3A/Web%20Projects/hike/frontend/app/login/layout.tsx"],"sourcesContent":["export default function Layout({\r\n  children,\r\n}: Readonly<{\r\n  children: React.ReactNode;\r\n}>) {\r\n  return <div>{children}</div>;\r\n}\r\n"],"names":[],"mappings":";;;;;AAAe,SAAS,OAAO,EAC7B,QAAQ,EAGR;IACA,qBAAO,8OAAC;kBAAK;;;;;;AACf"}},
+    {"offset": {"line": 21, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

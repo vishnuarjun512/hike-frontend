@@ -15,6 +15,7 @@ import { toast } from "@/hooks/use-toast";
 export default function SettingsPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+
   const [notifications, setNotifications] = useState(true);
   const [profilePic, setProfilePic] = useState<string | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -23,9 +24,13 @@ export default function SettingsPage() {
   const { user } = useUserStore(); // Fetching user ID
 
   useEffect(() => {
-    if (user?.name) setName(user?.name);
-    if (user?.email) setEmail(user?.email);
-    if (user?.profilePic) setProfilePic(user?.profilePic);
+    if (user) {
+      setName(user.name || "");
+      setEmail(user.email || "");
+      setProfilePic(user.profilePic || null);
+      console.log("User Profile Pic:", user.profilePic);
+      console.log("User ID:", user._id);
+    }
   }, [user]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,13 +40,13 @@ export default function SettingsPage() {
     const updatedData = {
       name,
       email,
-      userId: user?.id, // Assuming user has an `id`
+      userId: user?._id, // Assuming user has an `id`
     };
 
     try {
       // Make API call to update the user details
       const url = process.env.NEXT_PUBLIC_BASE_URL;
-      const response = await axios.put(`${url}/user/${user?.id}`, {
+      const response = await axios.put(`${url}/user/${user?._id}`, {
         updatedData,
       });
 
@@ -87,7 +92,7 @@ export default function SettingsPage() {
         setIsOpen={setIsImageDialogOpen}
         profilePic={profilePic}
       />
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="space-y-4">
         {/* Profile Picture Upload Section */}
         <div className=" flex justify-center items-center flex-col gap-3">
           <Avatar
@@ -132,8 +137,10 @@ export default function SettingsPage() {
           />
           <Label htmlFor="notifications">Enable notifications</Label>
         </div>
-        <Button type="submit">Save Changes</Button>
-      </form>
+        <Button onClick={handleSubmit} type="submit">
+          Save Changes
+        </Button>
+      </div>
     </div>
   );
 }
