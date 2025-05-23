@@ -33,29 +33,33 @@ export const SignupFormDemo: React.FC<SignupFormDemoInterface> = ({
     try {
       setLoading(true);
       const url = process.env.NEXT_PUBLIC_BASE_URL;
-      console.log(data);
-      const res = await axios.post(`${url}/auth/register`, { ...data });
-      console.log(res.data);
 
-      if (res?.data?.error == false) {
-        toast({
-          title: res.data.message,
-          description: `Congrats! Welcomee to Hike ${res.data.newUser.name}`,
-        });
-        setLogin(true);
-      } else {
+      const res = await axios.post(`${url}/auth/register`, { ...data });
+
+      if (res.data.error) {
         toast({
           variant: "destructive",
-          title: "Registration Issue",
+          title: "Registration Failed!",
           description: `Error: ${res.data.message}`,
         });
+        return;
       }
+
+      toast({
+        title: "Registration Successful",
+        description: `Congrats! Welcomee to Hike ${res.data.user.name}`,
+      });
+      setLogin(true);
     } catch (error: any) {
       console.log(error);
+
+      const errorMessage =
+        error?.response?.data?.message || "An unexpected error occurred.";
+
       toast({
         variant: "destructive",
         title: "Registration Failed",
-        description: `Error: ${error.response.data.message}!`,
+        description: `Error: ${errorMessage}`,
       });
     } finally {
       setLoading(false);

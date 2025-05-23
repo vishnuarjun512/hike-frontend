@@ -28,8 +28,6 @@ export default function SettingsPage() {
       setName(user.name || "");
       setEmail(user.email || "");
       setProfilePic(user.profilePic || null);
-      console.log("User Profile Pic:", user.profilePic);
-      console.log("User ID:", user._id);
     }
   }, [user]);
 
@@ -40,7 +38,6 @@ export default function SettingsPage() {
     const updatedData = {
       name,
       email,
-      userId: user?._id, // Assuming user has an `id`
     };
 
     try {
