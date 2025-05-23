@@ -1,9 +1,9 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/settings/page": "app/settings/page.js",
-  "/(Dashboard)/page": "app/(Dashboard)/page.js",
   "/friends/page": "app/friends/page.js",
   "/messages/page": "app/messages/page.js",
+  "/(Dashboard)/page": "app/(Dashboard)/page.js",
+  "/settings/page": "app/settings/page.js",
   "/login/page": "app/login/page.js"
 }
