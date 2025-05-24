@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useUserStore } from "@/states/user.state";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -26,6 +27,19 @@ export function UserNav() {
       setProfilePic(user.profilePic);
     }
   }, [user?.profilePic]); // This will re-run when user.profilePic changes
+
+  const logout = async () => {
+    if (!user) {
+      return;
+    }
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+      await axios.post(`${baseUrl}/auth/logout`, { userId: user?._id });
+      console.log("User logged out successfully");
+    } catch (error) {
+      console.error("Error logging out:", error);
+    }
+  };
 
   return (
     <DropdownMenu>
@@ -55,6 +69,7 @@ export function UserNav() {
         <DropdownMenuItem
           onClick={() => {
             clearUser();
+            logout();
             router.push("/login");
           }}
         >

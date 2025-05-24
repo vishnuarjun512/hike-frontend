@@ -3,7 +3,7 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
-  output: "export", // Required for static export
+  // output: "export", // Required for static export
 };
 
 export default nextConfig;

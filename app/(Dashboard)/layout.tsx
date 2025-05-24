@@ -4,6 +4,7 @@ import { SidebarNav } from "./(DashboardComponents)/sidebar-nav";
 import { UserNav } from "./(DashboardComponents)/user-nav";
 import type React from "react"; // Added import for React
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function DashboardLayout({
   children,
@@ -11,10 +12,14 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const loadUser = useUserStore((state) => state.loadUser);
+  const router = useRouter(); // Assuming you have a router in your user store
 
   const { user } = useUserStore();
 
   useEffect(() => {
+    if (user == null || user._id == "") {
+      router.push("/login");
+    }
     loadUser(); // Load user data from localStorage on app mount
   }, [loadUser]);
 

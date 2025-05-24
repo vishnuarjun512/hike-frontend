@@ -39,7 +39,13 @@ export const LoginFormDemo: React.FC<LoginFormDemoInterface> = ({
       setLoading(true);
       const url = process.env.NEXT_PUBLIC_BASE_URL;
 
-      const res = await axios.post(`${url}/auth/login`, { ...data });
+      const res = await axios.post(
+        `${url}/auth/login`,
+        { ...data },
+        {
+          withCredentials: true,
+        }
+      );
       if (res.data.error == false) {
         console.log(res.data.user);
         setUser(res.data.user);

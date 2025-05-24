@@ -1,11 +1,22 @@
 "use client";
 import { Spotlight } from "@/components/ui/spotlight";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LoginFormDemo } from "./(AuthComponents)/LoginForm";
 import { SignupFormDemo } from "./(AuthComponents)/SignupForm";
+import { useUserStore } from "@/states/user.state";
+import { useRouter } from "next/navigation";
 
 const Home = () => {
   const [login, setLogin] = useState(true);
+  const { user } = useUserStore();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user != null && user._id != "") {
+      router.push("/");
+    }
+  }, [user]);
+
   return (
     <div className="dark grid md:grid-cols-12 relative bg-black/[0.96] antialiased">
       <div className=" h-screen w-full flex items-center justify-center relative overflow-hidden col-span-8">
